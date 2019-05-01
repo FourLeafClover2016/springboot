@@ -1,0 +1,15 @@
+
+
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.124.128:3306/springboot?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath:mappers/*.xml
+  type-aliases-package: com.hwx.model
+server:
+  port: 8888
+  servlet:
+    context-path: /springboot

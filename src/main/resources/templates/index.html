@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" th:href="@{/layui/assets/css/layui.css}"/>
+    <link rel="stylesheet" th:href="@{/layui/assets/css/admin.css}"/>
+    <link rel="icon" th:href="@{/layui/assets/images/head.png}"/>
+    <title>管理后台</title>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header custom-header">
+
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item slide-sidebar">
+                <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
+            </li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    <span sec:authentication="name"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="#" onclick="fixPasswd();return false;">修改密码</a></dd>
+                    <dd><a th:href="@{/logout}">退出</a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side custom-admin">
+        <div class="layui-side-scroll">
+
+            <div class="custom-logo">
+               <!-- <img th:src="@{/images/logo.png}" alt=""/>-->
+                <i class="layui-icon" style="margin-left:20px;">&#xe672;</i>
+                <h1>管理中心</h1>
+            </div>
+            <ul id="Nav" class="layui-nav layui-nav-tree">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon">&#xe609;</i>
+                        <em>主页</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/layui/views/console.html}">控制台</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon">&#xe857;</i>
+                        <em>组件</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="views/form.html">表单</a></dd>
+                        <dd>
+                            <a href="javascript:;">页面</a>
+                            <dl class="layui-nav-child">
+                                <dd>
+                                    <a href="login.html">登录页</a>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon">&#xe612;</i>
+                        <em>用户</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a th:href="@{/users}">用户组</a></dd>
+                        <dd><a href="views/operaterule.html">权限配置</a></dd>
+                    </dl>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <div class="layui-tab app-container" lay-allowClose="true" lay-filter="tabs">
+            <ul id="appTabs" class="layui-tab-title custom-tab"></ul>
+            <div id="appTabPage" class="layui-tab-content"></div>
+        </div>
+    </div>
+
+    <div class="layui-footer">
+        <p>© 2018 更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+    </div>
+
+    <div class="mobile-mask"></div>
+</div>
+<script th:src="@{/layui/assets/layui.js}"></script>
+<script th:src="@{/layui/index.js}" data-main="home"></script>
+<script type="text/javascript">
+    function fixPasswd(){
+        layer.open({
+            id:1,
+            type: 1,
+            title:'修改密码',
+            skin:'layui-layer-rim',
+            area:['450px', 'auto'],
+
+            content: ' <div class="row" style="width: 420px;  margin-left:7px; margin-top:10px;">'
+                +'<div class="col-sm-12">'
+                +'<div class="input-group">'
+                +'<span class="input-group-addon"> 新 密 码   :</span>'
+                +'<input id="firstpwd" type="password" class="form-control" placeholder="请输入密码">'
+                +'</div>'
+                +'</div>'
+                +'<div class="col-sm-12" style="margin-top: 10px">'
+                +'<div class="input-group">'
+                +'<span class="input-group-addon">确认密码:</span>'
+                +'<input id="secondpwd" type="password" class="form-control" placeholder="请再输入一次密码">'
+                +'</div>'
+                +'</div>'
+                +'</div>'
+            ,
+            btn:['保存','取消'],
+            btn1: function (index,layero) {
+            },
+            btn2:function (index,layero) {
+                layer.close(index);
+            }
+
+        });
+    }
+
+</script>
+</body>
+</html>
