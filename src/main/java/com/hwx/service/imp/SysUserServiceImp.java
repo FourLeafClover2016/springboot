@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,7 +82,7 @@ public class SysUserServiceImp implements SysUserService {
     public ResultMessge update(SysUser user) {
         ResultMessge resultMessge = new ResultMessge();
         UpdateWrapper<SysUser> userUpdateWrapper = new UpdateWrapper<>();
-        userUpdateWrapper.eq("username", user.getUsername());
+        userUpdateWrapper.set("passwd",3).eq("username", user.getUsername());
         try {
             sysUserMapper.update(user, userUpdateWrapper);
             resultMessge.setResult("更新成功");
