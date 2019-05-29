@@ -20,17 +20,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyUserDetailsService userDetailsService;
 
+    @Autowired
+    private MyAuthenticationFailHandler authenticationFailHandler;
+
+    @Autowired
+    private MyAuthenticationSuccessHandler authenticationSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")
-                .failureForwardUrl("/login")
-                //.successForwardUrl("/index")
-                //.loginProcessingUrl("/login")
+              //  .failureForwardUrl("/login")
+                .failureHandler(authenticationFailHandler)
+                .successHandler(authenticationSuccessHandler)
+              //  .successForwardUrl("/index")
+                .loginProcessingUrl("/login")
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**", "/login", "/layui/**", "/images/**", "/assets/**", "/css/**", "/iconfont/**", "/js/**").permitAll()
+                .antMatchers( "/login", "/layui/**", "/images/**", "/assets/**", "/css/**", "/iconfont/**", "/js/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

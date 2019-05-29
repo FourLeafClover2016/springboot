@@ -6,6 +6,8 @@ import com.hwx.dao.SysUserMapper;
 import com.hwx.model.SysRole;
 import com.hwx.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationServiceException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -32,15 +34,20 @@ public class MyUserDetailsService implements UserDetailsService {
     private SysRoleMapper sysRoleMapper;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LockedException {
         SysUser sysUserBean = new SysUser();
         sysUserBean.setUsername(username);
+
+        if ("admin3".equals(username)){
+            throw new LockedException("账户已经被锁定");
+        }
 
         SysUser sysUser = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
 
         if (null == sysUser) {
-            throw new UsernameNotFoundException("未知用户:" + username);
+            throw new RuntimeException("未知用户");
         }
+
 
         SysRole role = sysRoleMapper.selectById(sysUser.getRoleId());
         List<GrantedAuthority> authorities = new ArrayList<>();
