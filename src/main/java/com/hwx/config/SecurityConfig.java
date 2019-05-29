@@ -34,11 +34,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authenticationFailHandler)
                 .successHandler(authenticationSuccessHandler)
               //  .successForwardUrl("/index")
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/user/login")
 
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/login", "/layui/**", "/images/**", "/assets/**", "/css/**", "/iconfont/**", "/js/**").permitAll()
+                .antMatchers( "/login", "/user/login", "/layui/**", "/images/**", "/assets/**", "/css/**", "/iconfont/**", "/js/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
