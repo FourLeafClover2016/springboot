@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 实现UserDetailsService接口,自定义加载用户信息
  * @author: Huawei Xie
  * @date: 2019/4/1
  */
@@ -38,16 +39,16 @@ public class MyUserDetailsService implements UserDetailsService {
         SysUser sysUserBean = new SysUser();
         sysUserBean.setUsername(username);
 
+        // TODO 模拟账户被锁定的情况
         if ("admin3".equals(username)){
-            throw new LockedException("账户已经被锁定");
+            throw new LockedException("locked");
         }
 
         SysUser sysUser = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
 
         if (null == sysUser) {
-            throw new RuntimeException("未知用户");
+            throw new RuntimeException("unknown");
         }
-
 
         SysRole role = sysRoleMapper.selectById(sysUser.getRoleId());
         List<GrantedAuthority> authorities = new ArrayList<>();

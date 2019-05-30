@@ -23,19 +23,16 @@ import java.io.IOException;
 public class MyAuthenticationFailHandler implements AuthenticationFailureHandler {
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     private HttpSession session;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        log.info("登陆失败:{}", e.getMessage());
-        if ("账户已经被锁定".equals(e.getMessage())) {
+        log.info("{}登陆失败:{}", httpServletRequest.getParameter("username"), e.getMessage());
+        if ("locked".equals(e.getMessage())) {
             session.setAttribute("message", "locked");
-        } else if ("未知用户".equals(e.getMessage())) {
+        } else if ("unknown".equals(e.getMessage())) {
             session.setAttribute("message", "unknow");
         } else {
             session.setAttribute("message", "error");

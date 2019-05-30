@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * mybatis plus 配置
  * @author: Huawei Xie
  * @date: 2019/5/1
  */

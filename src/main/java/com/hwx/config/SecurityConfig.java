@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
+ * spring secutiry 配置拦截策略
  * @author: Huawei Xie
  * @date: 2019/4/1
  */

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+/**
+ * AOP切面配置
+ */
 @Aspect
 @Component
 public class AopConfig {
