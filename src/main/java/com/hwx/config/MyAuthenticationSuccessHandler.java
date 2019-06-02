@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 登陆成功,做出相应处理
+ */
 @Component
 @Slf4j
 public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHandler {

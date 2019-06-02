@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 实现UserDetailsService接口,自定义加载用户信息
  * @author: Huawei Xie
  * @date: 2019/4/1
  */
@@ -52,7 +53,6 @@ public class MyUserDetailsService implements UserDetailsService {
         if (null == sysUser) {
             throw new RuntimeException("unknown");
         }
-
 
         SysRole role = sysRoleMapper.selectById(sysUser.getRoleId());
         List<GrantedAuthority> authorities = new ArrayList<>();
