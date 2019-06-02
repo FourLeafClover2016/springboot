@@ -5,6 +5,7 @@ import com.hwx.dao.SysRoleMapper;
 import com.hwx.dao.SysUserMapper;
 import com.hwx.model.SysRole;
 import com.hwx.model.SysUser;
+import com.hwx.tools.UserLockedMemory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.LockedException;
@@ -33,19 +34,23 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private SysRoleMapper sysRoleMapper;
 
+    @Autowired
+    private UserLockedMemory userLockedMemory;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LockedException {
         SysUser sysUserBean = new SysUser();
         sysUserBean.setUsername(username);
 
-        if ("admin3".equals(username)){
-            throw new LockedException("账户已经被锁定");
+        // 判断账户是否被锁定
+        if (userLockedMemory.isLocked(username)){
+            throw new LockedException("locked");
         }
 
         SysUser sysUser = sysUserMapper.selectOne(new QueryWrapper<SysUser>().eq("username", username));
 
         if (null == sysUser) {
-            throw new RuntimeException("未知用户");
+            throw new RuntimeException("unknown");
         }
 
 
