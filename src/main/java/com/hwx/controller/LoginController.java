@@ -24,7 +24,7 @@ public class LoginController {
     public String login(Model model, HttpSession session) {
         if (null != session.getAttribute("message")) {
             model.addAttribute("msg", session.getAttribute("message"));
-            session.removeAttribute("message");
+           // session.removeAttribute("message");
         }
         return "login";
     }

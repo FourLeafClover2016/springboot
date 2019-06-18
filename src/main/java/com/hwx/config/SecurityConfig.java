@@ -40,12 +40,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers( "/login", "/user/login", "/layui/**", "/images/**", "/assets/**", "/css/**", "/iconfont/**", "/js/**").permitAll()
+                //.antMatchers("/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic()
                 .and().csrf().disable();
       //  http.sessionManagement().maximumSessions(1).expiredUrl("/login");
+        http.sessionManagement().invalidSessionUrl("/login");
         http.headers().frameOptions().sameOrigin();
     }
 

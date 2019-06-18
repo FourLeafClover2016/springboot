@@ -61,6 +61,10 @@
     function login() {
         document.getElementById('fromLogin').submit();
     }
+    $(function () {
+        var message = "<%=session.getAttribute('message')>";
+        console.log(message)
+    })
 </script>
 </body>
 </html>
